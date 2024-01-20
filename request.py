@@ -14,7 +14,8 @@ class Request():
         parts = self.__raw_request.split("\r\n")
         if len(parts) < 1 and len(parts[0].split(' ')) != 3:
             raise RequestInvalidException()
-        method, path, params = re.search("(^[A-Z]+)\\s+(/[-a-zA-Z0-9_./=]+)(\?[-a-zA-Z0-9_.=&]*)?", parts[0]).groups()
+        m = re.search("(^[A-Z]+)\\s+(/[-a-zA-Z0-9_./=]+)(\?[-a-zA-Z0-9_.=&]*)?", parts[0])
+        method, path, params = m.group(1), m.group(2), m.group(3)
         self.__path = path
         self.__params = params
         self.__method = method
